@@ -1,0 +1,22 @@
+name: react-app
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the code
+        uses: actions/checout@v6
+      - name: setup node version 20
+        uses: actions/setup-node@v6
+        with:
+            node-version: 20
+      - name: install npm package
+        run: npm ci
+
+      - name: run test
+        run: npm run test
