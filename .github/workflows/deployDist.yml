@@ -17,7 +17,7 @@ jobs:
             node-version: 20
 
       - name: Adding Cache
-        uses: actions/cache@v6
+        uses: actions/cache@v4
         id: npm-cache
         with:
           path: ~/.npm
@@ -38,7 +38,7 @@ jobs:
         with:
              node-version: 20
       - name: Adding Cache
-        uses: actions/cache@v6
+        uses: actions/cache@v4
         id: npm-cache
         with:
           path: ~/.npm
