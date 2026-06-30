@@ -45,6 +45,7 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           
       - name: install npm package
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: build project
