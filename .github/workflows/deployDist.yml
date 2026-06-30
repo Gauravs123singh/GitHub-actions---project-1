@@ -15,6 +15,13 @@ jobs:
         uses: actions/setup-node@v6
         with:
             node-version: 20
+
+      - name: Adding Cache
+        uses: actions/cache@v6
+        id: npm-cache
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
       - name: install npm package
         run: npm ci
 
@@ -30,8 +37,10 @@ jobs:
         uses: actions/setup-node@v6
         with:
              node-version: 20
-      - name: install npm package
+      - name: verify if npm cache exist or not
+        if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm ci
+
       - name: build project
         run: npm run build
       - name: Deploy
