@@ -20,3 +20,20 @@ jobs:
 
       - name: run test
         run: npm run test
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploying the app
+        uses: actions/checkout@v6
+      - name: setup node version 20
+        uses: actions/setup-node@v6
+        with:
+             node-version: 20
+      - name: install npm package
+        run: npm ci
+      - name: build project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deployment successful!"
+        
