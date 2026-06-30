@@ -27,11 +27,12 @@ jobs:
 
       - name: run test
         run: npm run test
-  deploy:
+
+  build:
     needs: test
     runs-on: ubuntu-latest
     steps:
-      - name: deploying the app
+      - name: checking out the repo
         uses: actions/checkout@v6
       - name: setup node version 20
         uses: actions/setup-node@v6
@@ -49,6 +50,21 @@ jobs:
 
       - name: build project
         run: npm run build
+      - name: Uploading the artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist-file
+          path: dist
+  
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downloading the artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: dist-file
+          path: dist
       - name: Deploy
         run: echo "Deployment successful!"
         
